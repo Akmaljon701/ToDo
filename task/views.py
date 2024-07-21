@@ -2,7 +2,6 @@ from django.db.models import Q
 from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-
 from task.models import Task
 from task.schemas import create_task_schema, update_task_schema, get_tasks_schema, get_task_schema
 from task.serializers import TaskCreateSerializer, TaskUpdateSerializer, TaskGetSerializer
