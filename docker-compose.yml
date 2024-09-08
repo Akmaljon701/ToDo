@@ -7,7 +7,7 @@ services:
     networks:
       - todo-network
     ports:
-      - "8000:8000"
+      - "8008:8000"
     depends_on:
       - psql-db
       - cache-db
