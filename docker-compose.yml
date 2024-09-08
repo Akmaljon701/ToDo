@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  web-app:
+    container_name: todo-app
+    build: .
+    networks:
+      - todo-network
+    ports:
+      - "8000:8000"
+    depends_on:
+      - psql-db
+      - cache-db
+    restart: unless-stopped
+
+  psql-db:
+    container_name: todo-sql
+    image: postgres
+    environment:
+      POSTGRES_DB: todo_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+    volumes:
+      - todo-sql-volume:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    networks:
+      - todo-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres && psql -U postgres -d online_education_platform_db -c 'SELECT 1'"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+
+  cache-db:
+    container_name: todo-nosql
+    image: redis
+    ports:
+      - "6378:6379"
+    networks:
+      - todo-network
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+
+networks:
+  todo-network:
+    driver: bridge
+
+volumes:
+  todo-sql-volume:
