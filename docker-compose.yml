@@ -55,8 +55,9 @@ services:
 
   celery:
     container_name: todo_celery
-    build:
-      context: .  # Dockerfile va boshqa fayllar joriy papkada.
+    image: akmaljonyoqubov/todo:latest
+#    build:
+#      context: .  # Dockerfile va boshqa fayllar joriy papkada.
     command: celery -A core worker --loglevel=info
     depends_on:
       - redis
@@ -69,8 +70,9 @@ services:
 
   celery-beat:
     container_name: todo_celery_beat
-    build:
-      context: .  # Dockerfile va boshqa fayllar joriy papkada.
+    image: akmaljonyoqubov/todo:latest
+#    build:
+#      context: .  # Dockerfile va boshqa fayllar joriy papkada.
     command: celery -A core beat --loglevel=info
     depends_on:
        - redis
