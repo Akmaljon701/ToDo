@@ -6,11 +6,11 @@ services:
     image: akmaljonyoqubov/todo:latest
 #    build:
 #      context: .  # Dockerfile va boshqa fayllar joriy papkada.
-    command: gunicorn core.wsgi:application --bind 0.0.0.0:8000
+    command: gunicorn core.wsgi:application --bind 0.0.0.0:8888
     networks:
       - todo_network
     ports:
-      - "8008:8000"
+      - "8888:8888"
     depends_on:
       - db
       - redis
