@@ -3,8 +3,9 @@ version: '3.8'
 services:
   app:
     container_name: todo-app
-    build:
-      context: .  # Dockerfile va boshqa fayllar joriy papkada.
+    image: akmaljonyoqubov/todo:latest
+#    build:
+#      context: .  # Dockerfile va boshqa fayllar joriy papkada.
     command: gunicorn core.wsgi:application --bind 0.0.0.0:8000
     networks:
       - todo_network
